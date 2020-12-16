@@ -1,11 +1,10 @@
-import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import './index.less'
+import Taro, { Component, Config } from "@tarojs/taro";
+import { View, Text } from "@tarojs/components";
+import "./index.less";
 
-import Login from '../../components/login/index'
+import Login from "../../components/login/index.weapp";
 
 export default class Index extends Component {
-
   /**
    * 指定config的类型声明为: Taro.Config
    *
@@ -14,24 +13,24 @@ export default class Index extends Component {
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
   config: Config = {
-    navigationBarTitleText: '首页'
-  }
+    navigationBarTitleText: "首页"
+  };
 
-  componentWillMount () { }
+  componentWillMount() {}
 
-  componentDidMount () { }
+  componentDidMount() {}
 
-  componentWillUnmount () { }
+  componentWillUnmount() {}
 
-  componentDidShow () { }
+  componentDidShow() {}
 
-  componentDidHide () { }
+  componentDidHide() {}
 
-  render () {
+  render() {
     return (
-      <View className='index'>
-        <Login/>
+      <View className="index">
+        <Login />
       </View>
-    )
+    );
   }
 }
