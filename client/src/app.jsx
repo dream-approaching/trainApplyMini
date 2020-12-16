@@ -5,6 +5,7 @@ import Index from "./pages/index";
 import MyToast from "./components/Toast";
 
 import "./app.less";
+import { getURLParameters } from './utils';
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -13,15 +14,8 @@ import "./app.less";
 // }
 
 class App extends Component {
-  /**
-   * 指定config的类型声明为: Taro.Config
-   *
-   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
-   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
-   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
-   */
   config = {
-    pages: ["pages/index/index"],
+    pages: ["pages/index/index", "pages/publish/index", "pages/detail/index"],
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fff",
@@ -34,9 +28,12 @@ class App extends Component {
   async componentDidMount() {
     if (process.env.TARO_ENV === "weapp") {
       await Taro.cloud.init();
+      const openId = await this.getOpenid();
+      console.log('%c zjs openId:', 'color: #0e93e0;background: #aaefe5;', openId);
 
       // 如果已经授权，则更新一下lastLogin
       const authSettings = await Taro.getSetting();
+      console.log('%c zjs authSettings:', 'color: #0e93e0;background: #aaefe5;', authSettings);
       if (authSettings.authSetting["scope.userInfo"]) {
         const openId = await this.getOpenid();
         const userInfo = await Taro.getUserInfo();
@@ -87,14 +84,19 @@ class App extends Component {
   getCloudOpenid = async () => {
     return (this.openid =
       this.openid ||
-      (await wx.cloud.callFunction({ name: "login" })).result.OPENID);
+      (await wx.cloud.callFunction({ name: "login" })).result.openid);
   };
 
-  //最佳方案。
+  // 最佳方案。
   getOpenid = async () => {
     (this.openid = this.openid || wx.getStorageSync("openid")) ||
       wx.setStorageSync("openid", await this.getCloudOpenid());
     return this.openid;
+  };
+
+  // 最佳方案。
+  isManager = async () => {
+    // getURLParameters()
   };
 
   // 在 App 类中的 render() 函数没有实际作用

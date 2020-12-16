@@ -8,7 +8,9 @@ export default class Login extends Component {
 
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    // this.getLogin()
+  }
 
   componentWillUnmount() {}
 
@@ -23,6 +25,7 @@ export default class Login extends Component {
         data: {}
       })
       .then(res => {
+        console.log('res.result', res.result)
         this.setState({
           context: res.result
         });
