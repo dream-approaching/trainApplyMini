@@ -1,11 +1,10 @@
-import Taro, { Component, Config } from "@tarojs/taro";
+import Taro, { Component } from "@tarojs/taro";
 import "taro-ui/dist/style/index.scss";
 import dayjs from "dayjs";
 import Index from "./pages/index";
 import MyToast from "./components/Toast";
 
 import "./app.less";
-import { getURLParameters } from './utils';
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -28,12 +27,8 @@ class App extends Component {
   async componentDidMount() {
     if (process.env.TARO_ENV === "weapp") {
       await Taro.cloud.init();
-      const openId = await this.getOpenid();
-      console.log('%c zjs openId:', 'color: #0e93e0;background: #aaefe5;', openId);
-
       // 如果已经授权，则更新一下lastLogin
       const authSettings = await Taro.getSetting();
-      console.log('%c zjs authSettings:', 'color: #0e93e0;background: #aaefe5;', authSettings);
       if (authSettings.authSetting["scope.userInfo"]) {
         const openId = await this.getOpenid();
         const userInfo = await Taro.getUserInfo();

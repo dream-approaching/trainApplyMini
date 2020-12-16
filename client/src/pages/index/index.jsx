@@ -1,4 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
+  import { AtTabBar } from 'taro-ui'
 import { View, Text } from "@tarojs/components";
 import "./index.less";
 
